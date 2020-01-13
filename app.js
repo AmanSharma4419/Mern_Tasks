@@ -10,6 +10,7 @@ var mongoose = require("mongoose");
 var adminRouter = require("./routes/adminRouter");
 var mentorRouter = require("./routes/mentorRouter");
 var mentorCrud = require("./routes/crudOperationRouter");
+var taskAssignment = require("./routes/taskAssignmentRouter");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 
@@ -59,6 +60,7 @@ mongoose.connect(
 app.use("/api/v1/mentor", mentorRouter);
 app.use("/api/v1/admin", adminRouter);
 app.use("/api/v1/mentorCrud", mentorCrud);
+app.use("/api/v1/task", taskAssignment);
 app.use("/users", usersRouter);
 app.use("/", indexRouter);
 
