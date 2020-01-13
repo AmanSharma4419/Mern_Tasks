@@ -9,6 +9,7 @@ var mongoose = require("mongoose");
 // All Requires For The Routing Section
 var adminRouter = require("./routes/adminRouter");
 var mentorRouter = require("./routes/mentorRouter");
+var mentorCrud = require("./routes/crudOperationRouter");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 
@@ -57,6 +58,7 @@ mongoose.connect(
 // Providing The Api Paths
 app.use("/api/v1/mentor", mentorRouter);
 app.use("/api/v1/admin", adminRouter);
+app.use("/api/v1/mentorCrud", mentorCrud);
 app.use("/users", usersRouter);
 app.use("/", indexRouter);
 
