@@ -8,12 +8,15 @@
     "sass": "node-sass -w ./client/assets/stylesheets/style.scss ./client/assets/stylesheets/style.css"
   },
   "dependencies": {
+    "bcrypt": "^3.0.7",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "ejs": "^2.7.4",
     "express": "~4.16.0",
     "html-webpack-plugin": "^3.2.0",
     "http-errors": "~1.6.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.8.7",
     "morgan": "~1.9.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",

@@ -4,7 +4,11 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+var mongoose = require("mongoose");
 
+// All Requires For The Routing Section
+var adminRouter = require("./routes/adminRouter");
+var mentorRouter = require("./routes/mentorRouter");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 
@@ -14,8 +18,13 @@ var app = express();
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
+app.use(logger("dev"));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, "public")));
 
-// Adding The Webpack To Run Application In The Single Enviroment!
+// Adding The Webpack Configuration
 if (process.env.NODE_ENV === "development") {
   var webpack = require("webpack");
   var webpackConfig = require("./webpack.config");
@@ -31,14 +40,25 @@ if (process.env.NODE_ENV === "development") {
   app.use(require("webpack-hot-middleware")(compiler));
 }
 
-app.use(logger("dev"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
+// Connecting To Db Locally
+mongoose.connect(
+  "mongodb://localhost:27017/MERN_TASKS",
+  { useNewUrlParser: true },
+  err => {
+    if (err) {
+      console.log(err, "Not Connected To DB");
+    } else {
+      console.log("Connected Sucessfully TO DB");
+      require("./utils/seed");
+    }
+  }
+);
+
 // Providing The Api Paths
-app.use("/", indexRouter);
+app.use("/api/v1/mentor", mentorRouter);
+app.use("/api/v1/admin", adminRouter);
 app.use("/users", usersRouter);
+app.use("/", indexRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -55,5 +75,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render("error");
 });
+
 // Exporting The Server File
 module.exports = app;
