@@ -6,6 +6,9 @@ const crudOperationControllers = require("../controllers/crudOperationController
 // Handling The Router For Creating The Mentor
 router.post("/create", crudOperationControllers.createMentor);
 
+// Handling The Router For Individual Mentor
+router.get("/individual/:id", crudOperationControllers.singleMentor);
+
 // Handling The Router For Reading The Mentor
 router.get("/read", crudOperationControllers.readMentor);
 

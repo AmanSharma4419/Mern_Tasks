@@ -3,7 +3,19 @@ var Mentor = require("../models/mentorSchema");
 
 // Controller For The Creating Operation
 function createMentor(req, res, next) {
+  if ((!req.body.name, !req.body.email, !req.body.password)) {
+    return res.status(401).json("Check Mentor Credentials");
+  }
   Mentor.create(req.body, (err, mentor) => {
+    if (err) return next(err);
+    return res.status(200).json({ mentor: mentor });
+  });
+}
+
+// Controller For The Getting Single Mentor Data
+function singleMentor(req, res, next) {
+  const id = req.params.id;
+  Mentor.findById(id, (err, mentor) => {
     if (err) return next(err);
     return res.status(200).json({ mentor: mentor });
   });
@@ -38,4 +50,10 @@ function deleteMentor(req, res, next) {
   });
 }
 
-module.exports = { createMentor, readMentor, updateMentor, deleteMentor };
+module.exports = {
+  createMentor,
+  readMentor,
+  singleMentor,
+  updateMentor,
+  deleteMentor
+};

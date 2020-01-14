@@ -4,7 +4,7 @@ var Mentor = require("../models/mentorSchema");
 // Mentor Registration Controller
 function mentorRegistration(req, res, next) {
   if (!req.body.name || !req.body.email || !req.body.password) {
-    return res.json(" Please Fill All Fields");
+    return res.status(401).json(" Please Fill All Fields");
   }
   Mentor.create(req.body, (err, registeredMentor) => {
     if (err) return next(err);

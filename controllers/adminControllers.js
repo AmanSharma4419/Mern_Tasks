@@ -5,7 +5,7 @@ var auth = require("../utils/auth");
 // Adminlogin Controller
 function adminLogin(req, res, next) {
   if (!req.body.email || !req.body.password) {
-    return res.json(" Please Fill All Fields");
+    return res.status(401).json(" Please Fill All Fields");
   }
   const { email, password } = req.body;
   Admin.findOne({ email }, (err, admin) => {
